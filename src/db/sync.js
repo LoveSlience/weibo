@@ -1,3 +1,6 @@
+/**
+ * @description sequlize 同步
+ */
 const seq = require('./seq')
 
 seq.authenticate().then(() => {
