@@ -35,8 +35,12 @@ app.use(views(__dirname + '/views', {
 //路由
 const jsonRouterView = require('./routes/views/json')
 const errorViewRouter = require('./routes/views/error')
+const userViewRouter = require('./routes/views/user')
+const userApiRouter = require('./routes/api/user')
 
 app.use(jsonRouterView.routes(), jsonRouterView.allowedMethods())
+app.use(userViewRouter.routes(), userViewRouter.allowedMethods())
+app.use(userApiRouter.routes(), userApiRouter.allowedMethods())
 //404路由注册到最下面
 app.use(errorViewRouter.routes(), errorViewRouter.allowedMethods())
 
