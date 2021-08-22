@@ -1,5 +1,3 @@
-// const { } = require('../utils/env');
-
 let REDIS_CONF = {
   // dev-server port
   port: 6379,
