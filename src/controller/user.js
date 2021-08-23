@@ -43,7 +43,6 @@ async function login(ctx,userName, password) {
   if(!ctx.session.userInfo) {
     ctx.session.userInfo = userInfo
   }
-  console.log(ctx.session.userInfo, 'ctx.session.userInfo')
   return new SuccessModel()
 }
 

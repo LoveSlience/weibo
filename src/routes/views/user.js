@@ -1,5 +1,6 @@
 const Router = require('koa-router')
 const router = new Router()
+const { loginRedirect } = require('../../middlewares/loginChecks')
 
 function getUserInfo(ctx) {
   const res = {
@@ -13,13 +14,16 @@ function getUserInfo(ctx) {
 }
 
 router.get('/login', async (ctx, next) => {
-  console.log(ctx.session, 'lohinsession')
   await ctx.render('login', getUserInfo(ctx))
 })
 
 router.get('/register', async (ctx, next) => {
-  console.log(ctx.session, 'registeression')
   await ctx.render('register', getUserInfo(ctx))
+})
+
+router.get('/setting', loginRedirect ,async (ctx, next) => {
+  
+  await ctx.render('setting', ctx.session.userInfo)
 })
 
 //404

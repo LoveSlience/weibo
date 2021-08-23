@@ -6,7 +6,22 @@ const {loginRedirect} = require('../middlewares/loginChecks')
 router.get('/', loginRedirect,  async (ctx, next) => {
   await ctx.render('index', {
     title: 'hello koa 2',
-    isMe: true
+    isMe: true,
+    blogData: {
+      isEmpty:true
+    },
+    userData: {
+      userInfo: {
+        picture: ''
+      },
+      fansData: {
+        userList: []
+      },
+      followersData: {
+        userList: []
+      }
+    },
+   
   })
 })
 
