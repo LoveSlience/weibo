@@ -29,8 +29,37 @@ async function createUser({userName, password, gender = 3, nickName}) {
   return  res.dataValues
 }
 
+async function updateUser({ newPassword, newNickName, newPicture, newCity}, {userName, password}) {
+  const updateDate = {}
+  if(newPassword) {
+    updateDate.password = newPassword
+  }
+  if(newNickName) {
+    updateDate.nickName = newNickName
+  }
+  if(newPicture) {
+    updateDate.picture = newPicture
+  }
+  if(newCity) {
+    updateDate.newCity = newCity
+  }
+  const whereData = {
+    userName
+  }
+  if(password) {
+    whereData.password = password
+  }
+  console.log(whereData, 'whereData')
+  console.log(updateDate, 'updateDate')
+  const res = await User.update(updateDate, {
+    where: whereData
+  })
+  return  res[0] > 0
+}
+
 
 module.exports = {
   getUserInfo,
-  createUser
+  createUser,
+  updateUser
 }
