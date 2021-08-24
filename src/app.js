@@ -60,14 +60,16 @@ const jsonRouterView = require('./routes/views/json')
 const errorViewRouter = require('./routes/views/error')
 const userViewRouter = require('./routes/views/user')
 const userApiRouter = require('./routes/api/user')
-const indexViewRouter = require('./routes/index')
 const utilsApiRouter = require('./routes/api/utils')
+const blogViewRouter = require('./routes/views/blogs')
+const blogHomeApiRouter = require('./routes/api/blog-home')
 
-app.use(indexViewRouter.routes(), indexViewRouter.allowedMethods())
 app.use(jsonRouterView.routes(), jsonRouterView.allowedMethods())
 app.use(userViewRouter.routes(), userViewRouter.allowedMethods())
 app.use(userApiRouter.routes(), userApiRouter.allowedMethods())
 app.use(utilsApiRouter.routes(), utilsApiRouter.allowedMethods())
+app.use(blogViewRouter.routes(), blogViewRouter.allowedMethods())
+app.use(blogHomeApiRouter.routes(), blogHomeApiRouter.allowedMethods())
 //404路由注册到最下面
 app.use(errorViewRouter.routes(), errorViewRouter.allowedMethods())
 
