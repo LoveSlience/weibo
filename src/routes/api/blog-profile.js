@@ -1,4 +1,5 @@
-const router = require('koa-router')()
+const Router = require('koa-router')
+const router = new Router()
 const { loginCheck } = require('../../middlewares/loginChecks')
 const { getProfileBlogList } = require('../../controller/blog-profile')
 router.prefix('/api/profile')
