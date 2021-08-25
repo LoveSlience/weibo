@@ -1,20 +1,22 @@
 const seq = require('../seq')
-const {STRING, INTEGER, TEXT} = require('../types')
-
-const Blogs = seq.define('blog', {
+const { INTEGER, STRING, TEXT } = require('../types')
+ 
+const Blog = seq.define('blog', {
   userId: {
     type: INTEGER,
     allowNull: false,
-    comment: '用户名唯一'
+    comment: '用户 ID'
   },
   content: {
     type: TEXT,
     allowNull: false,
-
+    comment: '微博内容'
   },
   image: {
-    type: STRING
+    type: STRING,
+    comment: '图片地址'
   }
 })
-
-module.exports = Blogs
+ 
+module.exports = Blog
+ 

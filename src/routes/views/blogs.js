@@ -17,13 +17,19 @@ router.get('/profile',loginRedirect, async (ctx, next) => {
 router.get('/profile/:userName',loginRedirect, async (ctx, next) => {
   const { userName: curUserName } = ctx.params
   const res = await getProfileBlogList(curUserName, 0)
-  const { isEmpty, blogList, pageSize, count, pageIndex} = res
+  const { isEmpty, blogList, pageSize, count, pageIndex} = res.data
+  console.log(res.data, 'res.data')
   await ctx.render('profile', {
-    isEmpty,
-    blogList,
-    pageSize,
-    pageIndex,
-    count
+    blogData: {
+      isEmpty,
+      blogList,
+      pageSize,
+      pageIndex,
+      count
+    },
+    userData: {
+      userInfo: ctx.session.userInfo
+    }
   })
 })
 

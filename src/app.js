@@ -63,6 +63,7 @@ const userApiRouter = require('./routes/api/user')
 const utilsApiRouter = require('./routes/api/utils')
 const blogViewRouter = require('./routes/views/blogs')
 const blogHomeApiRouter = require('./routes/api/blog-home')
+const profileApiRouter = require('./routes/api/blog-profile')
 
 app.use(jsonRouterView.routes(), jsonRouterView.allowedMethods())
 app.use(userViewRouter.routes(), userViewRouter.allowedMethods())
@@ -70,6 +71,7 @@ app.use(userApiRouter.routes(), userApiRouter.allowedMethods())
 app.use(utilsApiRouter.routes(), utilsApiRouter.allowedMethods())
 app.use(blogViewRouter.routes(), blogViewRouter.allowedMethods())
 app.use(blogHomeApiRouter.routes(), blogHomeApiRouter.allowedMethods())
+app.use(profileApiRouter.routes(), profileApiRouter.allowedMethods())
 //404路由注册到最下面
 app.use(errorViewRouter.routes(), errorViewRouter.allowedMethods())
 

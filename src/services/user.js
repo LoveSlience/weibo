@@ -49,8 +49,6 @@ async function updateUser({ newPassword, newNickName, newPicture, newCity}, {use
   if(password) {
     whereData.password = password
   }
-  console.log(whereData, 'whereData')
-  console.log(updateDate, 'updateDate')
   const res = await User.update(updateDate, {
     where: whereData
   })
