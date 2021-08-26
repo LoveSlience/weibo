@@ -55,8 +55,40 @@ async function deleteFollower(userId, followerId) {
   return res.dataValues
 }
 
+async function getFollowersByUser(userId) {
+  const result = await UserRelation.findAndCountAll({
+    order: [
+      ['id', 'desc']
+    ],
+    include: [
+      {
+        model: User,
+        attributes: ['id', 'userName', 'nickName', 'picture']
+      }
+    ],
+    where: {
+      userId,
+      followerId: {
+        [Sequelize.Op.ne]: userId
+      }
+    }
+  })
+
+  let userList = result.rows.map(item => {
+    let user = item.user.dataValues
+    user = formatUser(user)
+    return  user
+  })
+
+  return {
+    count: result.count,
+    userList
+  }
+}
+
 module.exports = {
   getUsersByFollower,
   addFollower,
-  deleteFollower
+  deleteFollower,
+  getFollowersByUser
 }
