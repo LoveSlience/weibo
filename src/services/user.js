@@ -1,5 +1,6 @@
 const { User } = require('../db/model/index')
 const {formatUser} = require('./_format')
+const { addFollower } = require('./user-relation')
 
 
 async function getUserInfo(userName, password) {
@@ -26,7 +27,11 @@ async function createUser({userName, password, gender = 3, nickName}) {
     gender,
     nickName: nickName ? nickName : userName
   })
-  return  res.dataValues
+  const data = res.dataValues
+  
+  addFollower(data.id, data.id)
+
+  return  data
 }
 
 async function updateUser({ newPassword, newNickName, newPicture, newCity}, {userName, password}) {

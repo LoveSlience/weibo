@@ -2,7 +2,7 @@ const { SuccessModel, ErrorModel } = require('../model/ResModel')
 const { addFollowerFailInfo, deleteFollowerFailInfo } = require('../model/Errinfo')
 const {getUsersByFollower, addFollower, deleteFollower, getFollowersByUser} = require('../services/user-relation')
 
-async function getFuns(userId) {
+async function getFans(userId) {
   const { count, userList } = await getUsersByFollower(userId)
 
   // 返回
@@ -42,7 +42,7 @@ async function getFollowers(userId) {
 }
 
 module.exports = {
-  getFuns,
+  getFans,
   follow,
   unFollow,
   getFollowers

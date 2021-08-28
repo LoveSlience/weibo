@@ -3,12 +3,45 @@ const router = new Router()
 const { loginRedirect } = require('../../middlewares/loginChecks')
 const { getProfileBlogList } = require('../../controller/blog-profile')
 const { getSquareBlogList } = require('../../controller/blog-square')
-const { getFuns, getFollowers } = require('../../controller/user-relation')
+const { getFans, getFollowers } = require('../../controller/user-relation')
+const { getHomeBlogList } = require('../../controller/blog-home')
 const { isExist } = require('../../controller/user')
 
 
 router.get('/',loginRedirect, async (ctx, next) => {
-  await ctx.render('index', {})
+  const userInfo = ctx.session.userInfo
+  const { id: userId } = userInfo
+
+  const result = await getHomeBlogList(userId)
+  const { isEmpty, blogList, pageSize, pageIndex, count } = result.data
+  // 获取粉丝
+  const fansResult = await getFans(userId)
+  const { count: fansCount, fansList } = fansResult.data
+
+  // 获取关注人列表
+  const followersResult = await getFollowers(userId)
+  const { count: followersCount, followersList } = followersResult.data
+
+  await ctx.render('index', {
+    userData: {
+      userInfo,
+      fansData: {
+        count: fansCount,
+        list: fansList
+      },
+      followersData: {
+        count: followersCount,
+        list: followersList
+      }
+    },
+    blogData: {
+      isEmpty,
+      blogList,
+      pageSize,
+      pageIndex,
+      count
+    }
+  })
 })
 
 
@@ -29,7 +62,6 @@ router.get('/profile/:userName',loginRedirect, async (ctx, next) => {
     curUserInfo = myUserInfo
   }else {
     const existResult = await isExist(curUserName)
-    console.log(existResult, 'existResult')
     if (existResult.errno !== 0) {
       // 用户名不存在
       return
@@ -42,7 +74,7 @@ router.get('/profile/:userName',loginRedirect, async (ctx, next) => {
   const { isEmpty, blogList, pageSize, count, pageIndex} = res.data
 
   //获取粉丝
-  const fansRes  = await getFuns(curUserInfo.id)
+  const fansRes  = await getFans(curUserInfo.id)
   const {count: fansCount, fansList} = fansRes.data
 
   const amIFollowed = fansList.some(item => item.userName === myUserName)
@@ -80,7 +112,6 @@ router.get('/profile/:userName',loginRedirect, async (ctx, next) => {
 router.get('/square',loginRedirect, async (ctx, next) => {
   const res = await getSquareBlogList(0)
   const { isEmpty, blogList, pageSize, count, pageIndex} = res.data || {}
-  console.log('sqaure')
   // ctx.render('square')
   await ctx.render('square', {
     blogData: {

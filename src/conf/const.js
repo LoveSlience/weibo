@@ -2,5 +2,6 @@ const DEFAULT_IMG = 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic4.
 
 module.exports ={
   DEFAULT_IMG,
-  PAGE_SIZE: 5
+  PAGE_SIZE: 5,
+  REG_FOR_AT_WHO: /@(.+?)\s-\s(\w+?)\b/g
 }
